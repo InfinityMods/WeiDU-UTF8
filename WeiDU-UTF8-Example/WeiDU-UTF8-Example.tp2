@@ -1,0 +1,56 @@
+ BACKUP "weidu_external\backup\WeiDU-UTF8-Example" // move backup folder outside of the main mod data folder, change only you mod data folder name
+SUPPORT "forum.com/thread-1"
+VERSION "0.1.0"
+
+AUTO_EVAL_STRINGS
+
+ALWAYS
+    OUTER_SPRINT MOD_FOLDER "WeiDU-UTF8-Example"
+    MKDIR "weidu_external\lang\%MOD_FOLDER%"
+
+    ACTION_DEFINE_ARRAY arrayNoConvert BEGIN setup END
+    ACTION_DEFINE_ARRAY arrayReload BEGIN mod END
+
+    LAF HANDLE_CHARSETS
+        INT_VAR
+            from_utf8 = 1
+            infer_charset = 1
+            verbose = 1
+        STR_VAR
+            default_language = english
+            tra_path = "%MOD_FOLDER%\lang"
+            out_path = "weidu_external\lang\%MOD_FOLDER%"
+            noconvert_array = arrayNoConvert
+            reload_array = arrayReload
+    END
+END
+
+AUTO_TRA "WeiDU-UTF8-Example\lang\%s"
+
+// Don't use %MOD_FOLDER% for LANGUAGE until it will be fixed, http://forums.pocketplane.net/index.php?topic=29521
+LANGUAGE "English" "english" "WeiDU-UTF8-Example\lang\english\setup.tra"
+LANGUAGE "Czech" "czech" "WeiDU-UTF8-Example\lang\czech\setup.tra"
+LANGUAGE "French" "french" "WeiDU-UTF8-Example\lang\french\setup.tra"
+LANGUAGE "German" "german" "WeiDU-UTF8-Example\lang\german\setup.tra"
+LANGUAGE "Italian" "italian" "WeiDU-UTF8-Example\lang\italian\setup.tra"
+LANGUAGE "Russian" "russian" "WeiDU-UTF8-Example\lang\russian\setup.tra"
+LANGUAGE "Polish" "polish" "WeiDU-UTF8-Example\lang\polish\setup.tra"
+LANGUAGE "Spanish" "spanish" "WeiDU-UTF8-Example\lang\spanish\setup.tra"
+
+BEGIN @1001
+
+ACTION_IF GAME_IS "bg1 totsc bgee" BEGIN
+    STRING_SET 15594 @10001
+END
+
+ACTION_IF GAME_IS "bgt" BEGIN
+    STRING_SET 11676 @10001
+END
+
+ACTION_IF GAME_IS "bg2ee tob" BEGIN
+    STRING_SET 70742 @10001
+END
+
+ACTION_IF GAME_IS "eet" BEGIN
+    STRING_SET 215594 @10001 // +200000
+END
