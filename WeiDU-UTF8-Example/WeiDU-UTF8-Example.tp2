@@ -25,17 +25,18 @@ ALWAYS
     END
 END
 
-AUTO_TRA "WeiDU-UTF8-Example\lang\%s"
+//Turns out the code is incompatible with AUTO_TRA. Until future investigation, you can't use this if you are not wiling to resign from using AUTO_TRA function.
+//AUTO_TRA "WeiDU-UTF8-Example\lang\%s"
 
 // Don't use %MOD_FOLDER% for LANGUAGE until it will be fixed, http://forums.pocketplane.net/index.php?topic=29521
-LANGUAGE "English" "english" "WeiDU-UTF8-Example\lang\english\setup.tra"
-LANGUAGE "Czech" "czech" "WeiDU-UTF8-Example\lang\czech\setup.tra"
-LANGUAGE "French" "french" "WeiDU-UTF8-Example\lang\french\setup.tra"
-LANGUAGE "German" "german" "WeiDU-UTF8-Example\lang\german\setup.tra"
-LANGUAGE "Italian" "italian" "WeiDU-UTF8-Example\lang\italian\setup.tra"
-LANGUAGE "Russian" "russian" "WeiDU-UTF8-Example\lang\russian\setup.tra"
-LANGUAGE "Polish" "polish" "WeiDU-UTF8-Example\lang\polish\setup.tra"
-LANGUAGE "Spanish" "spanish" "WeiDU-UTF8-Example\lang\spanish\setup.tra"
+LANGUAGE "English" "english" "WeiDU-UTF8-Example\lang\english\setup.tra" "WeiDU-UTF8-Example\lang\english\mod.tra"
+LANGUAGE "Czech" "czech" "WeiDU-UTF8-Example\lang\czech\setup.tra" "WeiDU-UTF8-Example\lang\czech\mod.tra"
+LANGUAGE "French" "french" "WeiDU-UTF8-Example\lang\french\setup.tra" "WeiDU-UTF8-Example\lang\french\mod.tra"
+LANGUAGE "German" "german" "WeiDU-UTF8-Example\lang\german\setup.tra" "WeiDU-UTF8-Example\lang\german\mod.tra"
+LANGUAGE "Italian" "italian" "WeiDU-UTF8-Example\lang\italian\setup.tra" "WeiDU-UTF8-Example\lang\italian\mod.tra"
+LANGUAGE "Russian" "russian" "WeiDU-UTF8-Example\lang\russian\setup.tra" "WeiDU-UTF8-Example\lang\russian\mod.tra"
+LANGUAGE "Polish" "polish" "WeiDU-UTF8-Example\lang\polish\setup.tra" "WeiDU-UTF8-Example\lang\polish\mod.tra"
+LANGUAGE "Spanish" "spanish" "WeiDU-UTF8-Example\lang\spanish\setup.tra" "WeiDU-UTF8-Example\lang\spanish\mod.tra"
 
 BEGIN @1001
 
