@@ -1,6 +1,6 @@
  BACKUP "weidu_external\backup\WeiDU-UTF8-Example" // move backup folder outside of the main mod data folder, change only you mod data folder name
 SUPPORT "forum.com/thread-1"
-VERSION "0.1.0"
+VERSION "0.1.1"
 
 AUTO_EVAL_STRINGS
 
@@ -25,8 +25,7 @@ ALWAYS
     END
 END
 
-//Turns out the code is incompatible with AUTO_TRA. Until future investigation, you can't use this if you are not wiling to resign from using AUTO_TRA function.
-//AUTO_TRA "WeiDU-UTF8-Example\lang\%s"
+AUTO_TRA "weidu_external\lang\%MOD_FOLDER%\%s" //use out_path + \%s
 
 // Don't use %MOD_FOLDER% for LANGUAGE until it will be fixed, http://forums.pocketplane.net/index.php?topic=29521
 LANGUAGE "English" "english" "WeiDU-UTF8-Example\lang\english\setup.tra" "WeiDU-UTF8-Example\lang\english\mod.tra"
