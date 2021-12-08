@@ -1,5 +1,5 @@
  BACKUP "weidu_external\backup\WeiDU-UTF8-Example" // move backup folder outside of the mod data folder, %MOD_FOLDER% variable will be fine
-SUPPORT "forum.com/thread-1"
+SUPPORT "https://www.gibberlings3.net/forums/topic/32369-tutorial-how-to-properly-handle-mod-translation-by-using-handle_charsets-function-with-auto_tra"
 VERSION "3.0.0"
 
 ALWAYS
