@@ -1,56 +1,137 @@
- BACKUP "weidu_external\backup\WeiDU-UTF8-Example" // move backup folder outside of the main mod data folder, change only you mod data folder name
+ BACKUP "weidu_external\backup\WeiDU-UTF8-Example" // move backup folder outside of the mod data folder, %MOD_FOLDER% variable will be fine
 SUPPORT "forum.com/thread-1"
-VERSION "0.1.1"
-
-AUTO_EVAL_STRINGS
+VERSION "3.0.0"
 
 ALWAYS
-    OUTER_SPRINT MOD_FOLDER "WeiDU-UTF8-Example"
-    MKDIR "weidu_external\lang\%MOD_FOLDER%"
 
-    ACTION_DEFINE_ARRAY arrayNoConvert BEGIN setup END
-    ACTION_DEFINE_ARRAY arrayReload BEGIN mod END
-
+// do not convert Setup.tra files, those should be UTF8 already
+    ACTION_DEFINE_ARRAY arrayNoConvert BEGIN Setup END 
+    ACTION_DEFINE_ARRAY arrayReload BEGIN Mod NPC NPCP NPC25P END
+    
+    // define variable for HANDLE_CHARSETS out_path so it can be reused later
+    OUTER_TEXT_SPRINT "HANDLE_CHARSETS_OUT_PATH" EVAL "weidu_external\Lang\%MOD_FOLDER%"
+    
     LAF HANDLE_CHARSETS
         INT_VAR
             from_utf8 = 1
             infer_charset = 1
-            verbose = 1
+            verbose = 1 // you can disable this if you want to skip verbose output
         STR_VAR
             default_language = english
-            tra_path = "%MOD_FOLDER%\lang"
-            out_path = "weidu_external\lang\%MOD_FOLDER%"
+            tra_path = EVAL "%MOD_FOLDER%\Lang"
+            out_path = EVAL "%HANDLE_CHARSETS_OUT_PATH%" // location of converted .tra files
             noconvert_array = arrayNoConvert
             reload_array = arrayReload
     END
+    
+    // for AUTO_TRA: if the game is the enhanced edition, the conversion will not happen so all .tra files should be loaded from "%MOD_FOLDER%\Lang"
+    ACTION_IF (GAME_IS "bgee bg2ee eet iwdee pstee") THEN BEGIN
+        OUTER_TEXT_SPRINT "TRA_LOCATION" EVAL "%MOD_FOLDER%\Lang"
+    END
+
+    // for AUTO_TRA: if the game is the classic edition, all converted .tra files will be loaded from HANDLE_CHARSETS out_path
+    ACTION_IF NOT (GAME_IS "bgee bg2ee eet iwdee pstee") THEN BEGIN
+        OUTER_TEXT_SPRINT "TRA_LOCATION" EVAL "%HANDLE_CHARSETS_OUT_PATH%"
+    END
+
 END
 
-AUTO_TRA "weidu_external\lang\%MOD_FOLDER%\%s" //use out_path + \%s
+// for the EE games, the variable will point to the untouched .tra files
+// for classic games will point to the HANDLE_CHARSETS out_path value where converted files are stored
+AUTO_TRA "%TRA_LOCATION%\%s"
 
-// Don't use %MOD_FOLDER% for LANGUAGE until it will be fixed, http://forums.pocketplane.net/index.php?topic=29521
-LANGUAGE "English" "english" "WeiDU-UTF8-Example\lang\english\setup.tra" "WeiDU-UTF8-Example\lang\english\mod.tra"
-LANGUAGE "Czech" "czech" "WeiDU-UTF8-Example\lang\czech\setup.tra" "WeiDU-UTF8-Example\lang\czech\mod.tra"
-LANGUAGE "French" "french" "WeiDU-UTF8-Example\lang\french\setup.tra" "WeiDU-UTF8-Example\lang\french\mod.tra"
-LANGUAGE "German" "german" "WeiDU-UTF8-Example\lang\german\setup.tra" "WeiDU-UTF8-Example\lang\german\mod.tra"
-LANGUAGE "Italian" "italian" "WeiDU-UTF8-Example\lang\italian\setup.tra" "WeiDU-UTF8-Example\lang\italian\mod.tra"
-LANGUAGE "Russian" "russian" "WeiDU-UTF8-Example\lang\russian\setup.tra" "WeiDU-UTF8-Example\lang\russian\mod.tra"
-LANGUAGE "Polish" "polish" "WeiDU-UTF8-Example\lang\polish\setup.tra" "WeiDU-UTF8-Example\lang\polish\mod.tra"
-LANGUAGE "Spanish" "spanish" "WeiDU-UTF8-Example\lang\spanish\setup.tra" "WeiDU-UTF8-Example\lang\spanish\mod.tra"
+LANGUAGE "English" "English" 
+    "%MOD_FOLDER%\Lang\English\Setup.tra"
+    "%MOD_FOLDER%\Lang\English\Mod.tra"
+    "%MOD_FOLDER%\Lang\English\NPC.tra"
+    "%MOD_FOLDER%\Lang\English\NPCP.tra"
+    "%MOD_FOLDER%\Lang\English\NPC25P.tra"
 
-BEGIN @1001
+LANGUAGE "Czech" "Czech"
+    "%MOD_FOLDER%\Lang\Czech\Setup.tra"
+    "%MOD_FOLDER%\Lang\Czech\Mod.tra"
+    "%MOD_FOLDER%\Lang\Czech\NPC.tra"
+    "%MOD_FOLDER%\Lang\Czech\NPCP.tra"
+    "%MOD_FOLDER%\Lang\Czech\NPC25P.tra"
 
-ACTION_IF GAME_IS "bg1 totsc bgee" BEGIN
-    STRING_SET 15594 @10001
-END
+LANGUAGE "French" "French"
+    "%MOD_FOLDER%\Lang\French\Setup.tra"
+    "%MOD_FOLDER%\Lang\French\Mod.tra"
+    "%MOD_FOLDER%\Lang\French\NPC.tra"
+    "%MOD_FOLDER%\Lang\French\NPCP.tra"
+    "%MOD_FOLDER%\Lang\French\NPC25P.tra"
 
-ACTION_IF GAME_IS "bgt" BEGIN
-    STRING_SET 11676 @10001
-END
+LANGUAGE "German" "German"  
+    "%MOD_FOLDER%\Lang\German\Setup.tra"
+    "%MOD_FOLDER%\Lang\German\Mod.tra"
+    "%MOD_FOLDER%\Lang\German\NPC.tra"
+    "%MOD_FOLDER%\Lang\German\NPCP.tra"
+    "%MOD_FOLDER%\Lang\German\NPC25P.tra"
 
-ACTION_IF GAME_IS "bg2ee tob" BEGIN
-    STRING_SET 70742 @10001
-END
+LANGUAGE "Italian" "Italian" 
+    "%MOD_FOLDER%\Lang\Italian\Setup.tra"
+    "%MOD_FOLDER%\Lang\Italian\Mod.tra"
+    "%MOD_FOLDER%\Lang\Italian\NPC.tra"
+    "%MOD_FOLDER%\Lang\Italian\NPCP.tra"
+    "%MOD_FOLDER%\Lang\Italian\NPC25P.tra"
 
-ACTION_IF GAME_IS "eet" BEGIN
-    STRING_SET 215594 @10001 // +200000
-END
+LANGUAGE "Polish" "Polish"
+    "%MOD_FOLDER%\Lang\Polish\Setup.tra"
+    "%MOD_FOLDER%\Lang\Polish\Mod.tra"
+    "%MOD_FOLDER%\Lang\Polish\NPC.tra"
+    "%MOD_FOLDER%\Lang\Polish\NPCP.tra"
+    "%MOD_FOLDER%\Lang\Polish\NPC25P.tra"
+
+LANGUAGE "Russian" "Russian" 
+    "%MOD_FOLDER%\Lang\Russian\Setup.tra" 
+    "%MOD_FOLDER%\Lang\Russian\Mod.tra"
+    "%MOD_FOLDER%\Lang\Russian\NPC.tra"
+    "%MOD_FOLDER%\Lang\Russian\NPCP.tra"
+    "%MOD_FOLDER%\Lang\Russian\NPC25P.tra"
+
+LANGUAGE "Spanish" "Spanish"
+    "%MOD_FOLDER%\Lang\Spanish\Setup.tra"
+    "%MOD_FOLDER%\Lang\Spanish\Mod.tra"
+    "%MOD_FOLDER%\Lang\Spanish\NPC.tra"
+    "%MOD_FOLDER%\Lang\Spanish\NPCP.tra"
+    "%MOD_FOLDER%\Lang\Spanish\NPC25P.tra"
+
+BEGIN @1001 DESIGNATED 1001 LABEL "WeiDU-UTF8-Example-Main"
+    REQUIRE_PREDICATE GAME_IS ~bgee tob bg2ee bgt eet~ "Supported games: bgee tob bg2ee bgt eet"
+
+    COPY "%MOD_FOLDER%\Characters\NPC.cre" "Override"
+
+    SAY NAME1 @11001
+    SAY NAME2 @11001
+    SAY BIO @11002
+    SAY INITIAL_MEETING @11002
+    WRITE_ASCII 0x2cc "NPC" #8
+    WRITE_ASCII 0x280 "NPC" #32
+
+    COMPILE
+	"%MOD_FOLDER%\Dialogs\NPC.d"
+    "%MOD_FOLDER%\Dialogs\NPC25P.d"
+    "%MOD_FOLDER%\Dialogs\NPCP.d"
+
+    APPEND "pdialog.2da" "NPC NPCP NPCJ NPCP NPC25P NPC25J NPC25D NPC25S" UNLESS "NPC"
+    APPEND "interdia.2da" "NPC BNPC BNPC25" UNLESS "NPC"
+    
+    ACTION_IF GAME_IS "bgee" BEGIN
+        STRING_SET 15594 @10001
+        EXTEND_TOP "AR2600.bcs" "%MOD_FOLDER%\Scripts\AR2600.baf"
+    END
+
+    ACTION_IF GAME_IS "bgt" BEGIN
+        STRING_SET 11676 @10001
+        EXTEND_TOP "AR0015.bcs" "%MOD_FOLDER%\Scripts\AR0015.baf"
+    END
+
+    ACTION_IF GAME_IS "tob bg2ee" BEGIN
+        STRING_SET 70742 @10001
+        EXTEND_TOP "AR4000.bcs" "%MOD_FOLDER%\Scripts\AR4000.baf"
+    END
+
+    ACTION_IF GAME_IS "eet" BEGIN
+        STRING_SET 215594 @10001 // +200000
+        EXTEND_TOP "BG2600.bcs" "%MOD_FOLDER%\Scripts\BG2600.baf"
+    END

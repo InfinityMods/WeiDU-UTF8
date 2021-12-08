@@ -1,0 +1,9 @@
+IF
+    Exists(Player1)
+    !Global("NPCExists","AR0015",1)
+THEN
+  RESPONSE #100
+    CreateCreature("NPC",[1530.950],3)
+    SetGlobal("NPCExists","AR0015",1)
+    Continue()
+END
